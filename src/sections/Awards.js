@@ -1,7 +1,46 @@
-import React from "react";
+import { useState, useEffect } from "react";
 import "../styles/awards.css";
+import { awardsApi } from "../services/api";
 
-const Awards = () => {
+const Awards = ({ nickname }) => {
+  const [awards, setAwards] = useState([]);
+  const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    const fetchAwards = async () => {
+      if (!nickname) return;
+      
+      try {
+        setLoading(true);
+        const data = await awardsApi.getAwards(nickname);
+        setAwards(data.data);
+      } catch (error) {
+        console.error('수상 내역을 불러오는데 실패했습니다:', error);
+        setAwards([
+          {
+            awardedAt: "2023년 5월 31일",
+            name: "교내창업경진대회",
+            awardRank: "동상(3위)",
+            organization: "부산컴퓨터과학고등학교"
+          }
+        ]);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchAwards();
+  }, [nickname]);
+
+  if (loading) {
+    return (
+      <section id="awards">
+        <h1>AWARDS</h1>
+        <p>로딩 중...</p>
+      </section>
+    );
+  }
+
   return (
     <section id="awards">
       <h1>AWARDS</h1>
@@ -15,114 +54,16 @@ const Awards = () => {
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td>2023년 5월 31일</td>
-            <td>교내창업경진대회</td>
-            <td>동상(3위)</td>
-            <td>부산컴퓨터과학고등학교</td>
-          </tr>
-          <tr>
-            <td>2023년 5월 31일</td>
-            <td>표창장(모범부문)</td>
-            <td>순위없음</td>
-            <td>부산컴퓨터과학고등학교장</td>
-          </tr>
-          <tr>
-            <td>2023년 7월 7일</td>
-            <td>과학탐구</td>
-            <td>장려상(3위)</td>
-            <td>부산컴퓨터과학고등학교장</td>
-          </tr>
-          <tr>
-            <td>2023년 7월 20일</td>
-            <td>교과우수상(국어, 수학, 통합과학, 체육, 디지털 논리 회로, 정보처리와 관리)</td>
-            <td>순위없음</td>
-            <td>부산컴퓨터과학고등학교장</td>
-          </tr>
-          <tr>
-            <td>2023년 9월 22일</td>
-            <td>흡연예방 UCC경진대회(공동수상, 2인)</td>
-            <td>장려상(3위)</td>
-            <td>부산컴퓨터과학고등학교장</td>
-          </tr>
-          <tr>
-            <td>2023년 9월 26일</td>
-            <td>제20회 특성화고교생 사장되기 창업대회</td>
-            <td>금상</td>
-            <td>(주)원교재사 대표이사 성석경</td>
-          </tr>
-          <tr>
-            <td>2023년 12월 22일</td>
-            <td>1년개근상</td>
-            <td>순위없음</td>
-            <td>부산컴퓨터과학고등학교장</td>
-          </tr>
-          <tr>
-            <td>2023년 12월 22일</td>
-            <td>교과우수상(국어, 통합과학, 체육, 음악 감상과 비평, 인공지능 기초, 정보 처리와 관리)</td>
-            <td>순위없음</td>
-            <td>부산컴퓨터과학고등학교장</td>
-          </tr>
-          <tr>
-            <td>2024년 4월 5일</td>
-            <td>2024년 부산광역시 기능경기대회 웹디자인 및 개발</td>
-            <td>2위 은메달</td>
-            <td>부산광역시 기능경기위원회 위원장 박형준</td>
-          </tr>
-          <tr>
-            <td>2024년 5월 14일</td>
-            <td>표창장(모범부문)</td>
-            <td>순위없음</td>
-            <td>부산컴퓨터과학고등학교장</td>
-          </tr>
-          <tr>
-            <td>2024년 6월 5일</td>
-            <td>창업경진대회</td>
-            <td>장려(4위)</td>
-            <td>부산컴퓨터과학고등학교장</td>
-          </tr>
-          <tr>
-            <td>2024년 7월 5일</td>
-            <td>2024년 ICT 해카톤</td>
-            <td>우수상</td>
-            <td>동아대학교 소프트웨어혁신센터장상</td>
-          </tr>
-          <tr>
-            <td>2024년 7월 18일</td>
-            <td>자기소개서 작성 대회</td>
-            <td>장려상(3위)</td>
-            <td>부산컴퓨터과학고등학교장</td>
-          </tr>
-          <tr>
-            <td>2024년 7월 18일</td>
-            <td>도전, 레벨-업</td>
-            <td>순위없음</td>
-            <td>부산컴퓨터과학고등학교장</td>
-          </tr>
-          <tr>
-            <td>2024년 7월 18일</td>
-            <td>글로벌 영어말하기 대회</td>
-            <td>최우수상(1위)</td>
-            <td>부산컴퓨터과학고등학교장</td>
-          </tr>
-          <tr>
-            <td>2024년 7월 18일</td>
-            <td>교과우수상(문학, 사무 관리, 자료 구조, 데이터베이스 프로그래밍)</td>
-            <td>순위없음</td>
-            <td>부산컴퓨터과학고등학교장</td>
-          </tr>
-          <tr>
-            <td>2024년 10월 23일</td>
-            <td>바른 말 고운 말 글짓기 대회</td>
-            <td>장려상(3위)</td>
-            <td>부산컴퓨터과학고등학교장</td>
-          </tr>
-          <tr>
-            <td>2024년 12월 6일</td>
-            <td>전공실기공모전</td>
-            <td>금상(1위)</td>
-            <td>부산컴퓨터과학고등학교장</td>
-          </tr>
+          {awards
+            .sort((a, b) => new Date(b.awardedAt) - new Date(a.awardedAt)) // 최근 순 정렬
+            .map((award, index) => (
+              <tr key={index}>
+                <td>{award.awardedAt}</td>
+                <td>{award.name}</td>
+                <td>{award.awardRank}</td>
+                <td>{award.organization}</td>
+              </tr>
+            ))}
         </tbody>
       </table>
     </section>

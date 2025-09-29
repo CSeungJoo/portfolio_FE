@@ -17,6 +17,13 @@
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
   text-align: left;
   margin-bottom: 20px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.project-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
 }
 
 .project-card h4 {
@@ -66,7 +73,7 @@
   text-align: center;
 }
 
-.project-description {
+/* .project-description {
   padding: 0 20px;
   margin-bottom: 15px;
   color: #555555;
@@ -75,7 +82,7 @@
 .project-description li {
   font-size: 16px;
   margin-bottom: 5px;
-}
+} */
 
 .project-summary {
   font-size: 16px;

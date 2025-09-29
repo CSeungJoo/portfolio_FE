@@ -1,4 +1,4 @@
-import React from "react";
+import { useState, useEffect } from "react";
 import "../styles/skills.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -11,23 +11,66 @@ import {
   faPhp,
   faGitAlt,
   faFigma,
+  faJava,
 } from "@fortawesome/free-brands-svg-icons";
-import { faDatabase } from "@fortawesome/free-solid-svg-icons";
+import { faDatabase, faLeaf } from "@fortawesome/free-solid-svg-icons";
+import { skillsApi } from "../services/api";
 
-const skills = [
-  { name: "HTML", level: 90, iconLink: faHtml5 },
-  { name: "CSS", level: 85, iconLink: faCss3Alt },
-  { name: "JavaScript", level: 60, iconLink: faJs },
-  { name: "React", level: 30, iconLink: faReact },
-  { name: "Bootstrap", level: 50, iconLink: faBootstrap },
-  { name: "PHP", level: 50, iconLink: faPhp },
-  { name: "MySQL", level: 50, iconLink: faDatabase },
-  { name: "Git", level: 40, iconLink: faGitAlt },
-  { name: "GitHub", level: 70, iconLink: faGithub },
-  { name: "Figma", level: 60, iconLink: faFigma },
-];
+const iconMap = {
+  HTML: faHtml5,
+  CSS: faCss3Alt,
+  JavaScript: faJs,
+  React: faReact,
+  Bootstrap: faBootstrap,
+  PHP: faPhp,
+  MySQL: faDatabase,
+  Git: faGitAlt,
+  GitHub: faGithub,
+  Figma: faFigma,
+  Java: faJava,
+  Spring_Boot: faLeaf
+};
 
-const Skills = () => {
+const Skills = ({ nickname }) => {
+  const [skills, setSkills] = useState([]);
+  const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    const fetchSkills = async () => {
+      if (!nickname) return;
+      
+      try {
+        setLoading(true);
+        const data = await skillsApi.getSkills(nickname);
+        setSkills(data.data.map(skill => ({
+          ...skill,
+          iconLink: iconMap[skill.name.replace(/\s+/g, '_')] || faDatabase
+        })));
+      } catch (error) {
+        console.error('스킬 데이터를 불러오는데 실패했습니다:', error);
+        setSkills([
+          { name: "HTML", proficiencyRate: 90, skillLevel: "PROFICIENT", iconLink: faHtml5 },
+          { name: "CSS", proficiencyRate: 85, skillLevel: "PROFICIENT", iconLink: faCss3Alt },
+          { name: "JavaScript", proficiencyRate: 60, skillLevel: "PROFICIENT", iconLink: faJs },
+          { name: "React", proficiencyRate: 30, skillLevel: "PROFICIENT", iconLink: faReact },
+        ]);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchSkills();
+  }, [nickname]);
+
+  if (loading) {
+    return (
+      <section id="skills">
+        <h1 className="skills-title">SKILLS</h1>
+        <p>로딩 중...</p>
+      </section>
+    );
+  }
+
   return (
     <section id="skills">
       <h1 className="skills-title">SKILLS</h1>
@@ -40,9 +83,9 @@ const Skills = () => {
             <div className="progress-bar">
               <div
                 className="progress-fill"
-                style={{ width: `${skill.level}%` }}
+                style={{ width: `${skill.proficiencyRate}%` }}
               >
-                {skill.level}%
+                {skill.proficiencyRate}%
               </div>
             </div>
           </div>

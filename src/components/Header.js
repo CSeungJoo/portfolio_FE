@@ -1,22 +1,21 @@
-import React from "react";
 import "../styles/header.css";
 
-const Header = () => {
+const Header = ({nickname}) => {
   return (
     <header>
-      <span>DOEUN.PORTFOLIO</span>
+      <span>{nickname}.PORTFOLIO</span>
       <ul>
         <li>
-          <a href="#profile" className="hover:text-gray-400">PROFILE</a>
+          <a href={`${nickname}#profile`} className="hover:text-gray-400">PROFILE</a>
         </li>
         <li>
-          <a href="#skills" className="hover:text-gray-400">SKILLS</a>
+          <a href={`${nickname}#skills`} className="hover:text-gray-400">SKILLS</a>
         </li>
         <li>
-          <a href="#projects" className="hover:text-gray-400">PROJECTS</a>
+          <a href={`${nickname}#projects`} className="hover:text-gray-400">PROJECTS</a>
         </li>
         <li>
-          <a href="#awards" className="hover:text-gray-400">AWARDS</a>
+          <a href={`${nickname}#awards`} className="hover:text-gray-400">AWARDS</a>
         </li>
       </ul>
     </header>

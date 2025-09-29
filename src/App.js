@@ -1,4 +1,5 @@
 import React from "react";
+import { BrowserRouter as Router, Routes, Route, useParams } from "react-router-dom";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
 import Profile from "./sections/Profile";
@@ -8,12 +9,26 @@ import Awards from "./sections/Awards";
 
 function App() {
   return (
+    <Router>
+      <Routes>
+        <Route path="/portfolio/:nickname" element={<PortfolioPage />} />
+        <Route path="/portfolio" element={<PortfolioPage />} />
+        <Route path="/:nickname" element={<PortfolioPage />} />
+      </Routes>
+    </Router>
+  );
+}
+
+function PortfolioPage() {
+  const { nickname } = useParams();
+  
+  return (
     <div className="scroll">
-      <Header />
-      <Profile />
-      <Skills />
-      <Projects />
-      <Awards />
+      <Header nickname={nickname || "CSeungJoo"} />
+      <Profile nickname={nickname || "CSeungJoo"} />
+      <Skills nickname={nickname || "CSeungJoo"} />
+      <Projects nickname={nickname || "CSeungJoo"} />
+      <Awards nickname={nickname || "CSeungJoo"} />
       <Footer />
     </div>
   );

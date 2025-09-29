@@ -13,6 +13,8 @@
     "@testing-library/user-event": "^13.5.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "react-markdown": "^10.1.0",
+    "react-router-dom": "^7.7.1",
     "react-scripts": "5.0.1",
     "web-vitals": "^2.1.4"
   },
@@ -45,5 +47,6 @@
   "devDependencies": {
     "gh-pages": "^6.3.0"
   },
-  "homepage": "https://doeun07.github.io/portfolio/"
+  "proxy": "http://localhost:8080",
+  "homepage": "https://home.cseungjoo.kr/portfolio/"
 }
