@@ -6,14 +6,21 @@ import Profile from "./sections/Profile";
 import Projects from "./sections/Projects";
 import Skills from "./sections/Skills";
 import Awards from "./sections/Awards";
+import Login from "./pages/Login";
+import Register from "./pages/Register";
+import Admin from "./pages/Admin";
 
 function App() {
   return (
     <Router>
       <Routes>
+        <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} />
+        <Route path="/admin" element={<Admin />} />
         <Route path="/portfolio/:nickname" element={<PortfolioPage />} />
         <Route path="/portfolio" element={<PortfolioPage />} />
         <Route path="/:nickname" element={<PortfolioPage />} />
+        <Route path="/" element={<PortfolioPage />} />
       </Routes>
     </Router>
   );

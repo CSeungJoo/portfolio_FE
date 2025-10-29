@@ -3,29 +3,9 @@
   padding: 0;
 }
 
-header a {
-  text-decoration: none;
-  color: black;
-  color: #2c3e50;
-  font-size: 18px;
-  padding: 10px 15px;
-}
-
-header a:hover {
-  color: blue;
-  text-decoration: underline;
-}
-
-header ul,
-header ul li {
-  list-style: none;
-  display: flex;
-  justify-content: center;
-}
-
 header {
   display: flex;
-  justify-content: space-around;
+  justify-content: space-between;
   align-items: center;
   height: 80px;
   position: fixed;
@@ -34,16 +14,241 @@ header {
   width: 100%;
   background-color: white;
   z-index: 999;
-  box-shadow: 0 0 10px 1px gray;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  padding: 0 40px;
+  box-sizing: border-box;
 }
 
-header ul li {
-  margin: 0 10px;
-}
-
-header span {
+header .logo {
   letter-spacing: 2px;
   font-weight: bold;
   font-size: 1.5rem;
   color: #2c3e50;
+  flex-shrink: 0;
+}
+
+.nav-links {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+}
+
+.nav-links ul {
+  list-style: none;
+  display: flex;
+  gap: 10px;
+  margin: 0;
+  padding: 0;
+}
+
+.nav-links ul li {
+  margin: 0;
+}
+
+header a {
+  text-decoration: none;
+  color: #2c3e50;
+  font-size: 16px;
+  padding: 10px 15px;
+  font-weight: 500;
+  transition: color 0.3s, background-color 0.3s;
+  border-radius: 5px;
+  display: block;
+}
+
+header a:hover {
+  color: #f0b03c;
+  background-color: #f8f8f8;
+}
+
+.auth-links {
+  display: flex;
+  gap: 10px;
+  flex-shrink: 0;
+}
+
+.auth-btn {
+  padding: 8px 16px;
+  border: 2px solid #2c3e50;
+  background: white;
+  color: #2c3e50;
+  font-size: 14px;
+  font-weight: 600;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: all 0.3s;
+  white-space: nowrap;
+}
+
+.auth-btn:hover {
+  background: #2c3e50;
+  color: white;
+  transform: translateY(-2px);
+}
+
+.auth-btn.primary {
+  background: linear-gradient(135deg, #3b5998 0%, #1c3d73 100%);
+  color: white;
+  border: none;
+}
+
+.auth-btn.primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(59, 89, 152, 0.4);
+}
+
+.auth-btn.logout {
+  border-color: #ff4757;
+  color: #ff4757;
+}
+
+.auth-btn.logout:hover {
+  background: #ff4757;
+  color: white;
+}
+
+.hamburger {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 5px;
+}
+
+.hamburger span {
+  width: 25px;
+  height: 3px;
+  background-color: #2c3e50;
+  border-radius: 2px;
+  transition: all 0.3s;
+}
+
+.menu-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 999;
+  animation: fadeIn 0.3s ease-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.mobile-menu {
+  display: none;
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 280px;
+  height: 100vh;
+  background: white;
+  box-shadow: -2px 0 10px rgba(0, 0, 0, 0.1);
+  padding: 30px 20px;
+  z-index: 1000;
+  animation: slideIn 0.3s ease-out;
+}
+
+@keyframes slideIn {
+  from {
+    transform: translateX(100%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
+.close-menu {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  background: none;
+  border: none;
+  font-size: 28px;
+  color: #2c3e50;
+  cursor: pointer;
+  padding: 0;
+  width: 30px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.mobile-menu ul {
+  list-style: none;
+  padding: 0;
+  margin: 40px 0 0 0;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.mobile-menu ul li {
+  margin: 0;
+}
+
+.mobile-menu ul li a,
+.mobile-menu ul li button {
+  display: block;
+  width: 100%;
+  padding: 15px 20px;
+  text-decoration: none;
+  color: #2c3e50;
+  font-size: 16px;
+  font-weight: 500;
+  border: none;
+  background: none;
+  text-align: left;
+  cursor: pointer;
+  transition: all 0.3s;
+  border-radius: 8px;
+}
+
+.mobile-menu ul li a:hover,
+.mobile-menu ul li button:hover {
+  background: #f8f8f8;
+  color: #f0b03c;
+  padding-left: 25px;
+}
+
+.mobile-menu ul li.divider {
+  height: 1px;
+  background: #e0e0e0;
+  margin: 15px 0;
+}
+
+@media (max-width: 900px) {
+  header {
+    padding: 0 20px;
+  }
+
+  .nav-links,
+  .auth-links {
+    display: none;
+  }
+
+  .hamburger {
+    display: flex;
+  }
+
+  .mobile-menu {
+    display: block;
+  }
+}
+
+@media (max-width: 768px) {
+  header .logo {
+    font-size: 1.2rem;
+  }
 }
